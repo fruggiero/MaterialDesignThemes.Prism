@@ -2,5 +2,6 @@
   "$schema": "./build.schema.json",
   "Solution": "Prism.Plugin.MaterialDesign.sln",
   "PackageDescription": "Use MaterialDesignInXaml DialogHost with Prism's IDialogService",
-  "Authors": "Federico Ruggiero"
+  "Authors": "Federico Ruggiero",
+  "ProjectUrl": "https://github.com/fruggiero/Prism.Plugin.MaterialDesign"
 }

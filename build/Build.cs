@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+
 using Nuke.Common;
 using Nuke.Common.IO;
 using Nuke.Common.Tools.DotNet;
@@ -15,19 +16,20 @@ class Build : NukeBuild
     [Parameter("Configuration to build - Default is 'Debug' (local) or 'Release' (server)")]
     readonly Configuration Configuration = IsLocalBuild ? Configuration.Debug : Configuration.Release;
 
-    [Parameter("Package description")]
-    readonly string PackageDescription;
+    [Parameter("Package description")] readonly string PackageDescription;
 
-    [Parameter("Authors")]
-    readonly string Authors;
+    [Parameter("Authors")] readonly string Authors;
 
-    [Parameter("Solution")]
-    readonly string Solution;
+    [Parameter("Solution")] readonly string Solution;
+
+    [Parameter("ProjectUrl")] readonly string ProjectUrl;
+
+    [Parameter][Secret] readonly string NuGetApiKey;
 
     [NerdbankGitVersioning]
     readonly NerdbankGitVersioning NerdbankVersioning;
 
-    public static int Main () => Execute<Build>(x => x.Compile);
+    public static int Main() => Execute<Build>(x => x.Compile);
 
     Target Clean => _ => _
         .Before(Restore)
@@ -43,7 +45,7 @@ class Build : NukeBuild
         {
             EnsureCleanDirectory(OutputDirectory);
         });
-    
+
     Target Restore => _ => _
         .Executes(() =>
         {
@@ -80,27 +82,31 @@ class Build : NukeBuild
     Target Pack => _ => _
         .After(Compile)
         .DependsOn(CleanOutput)
+        .Produces(OutputDirectory / "*.nupkg")
         .Executes(() =>
         {
             DotNetTasks.DotNetPack(_ => _
                 .SetOutputDirectory(OutputDirectory)
-                .SetVersion(NerdbankVersioning.NuGetPackageVersion)
-                .SetDescription(PackageDescription)
                 .SetConfiguration(Configuration)
                 .SetProperties(new Dictionary<string, object>
                 {
                     {"Version", NerdbankVersioning.NuGetPackageVersion},
                     {"Description", PackageDescription},
                     {"Authors", Authors},
+                    {"PackageProjectUrl", ProjectUrl}
                 })
                 .EnableNoBuild());
         });
 
-    Target Deploy => _ => _
+    Target Publish => _ => _
         .After(Pack)
         .Executes(() =>
         {
-            FileSystemTasks.CopyDirectoryRecursively(OutputDirectory, @"D:\local_packages", DirectoryExistsPolicy.Merge,
-                FileExistsPolicy.Overwrite);
+            var path = OutputDirectory / $"{System.IO.Path.GetFileNameWithoutExtension(Solution)}.{NerdbankVersioning.NuGetPackageVersion}.nupkg";
+            DotNetTasks.DotNetNuGetPush(_ => _
+                .SetApiKey(NuGetApiKey)
+                .SetTargetPath(path)
+                .SetSource("https://api.nuget.org/v3/index.json")
+            );
         });
 }
