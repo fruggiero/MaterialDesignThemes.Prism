@@ -11,12 +11,11 @@ This package allows better integration of [Material Design In XAML Toolkit](http
 
 - Show Material Design dialogs with Prism DialogService
 
-The **DialogService** from Prism allow to show dialogs from your view models respectfully of MVVM architecture, without knowing the parts (view/viewmodel) that compose your dialog.
+The **DialogService** from Prism allows showing dialogs from your view models respectfully of MVVM architecture, without knowing the parts (View/ViewModel) that compose your dialog.
 
-Dialogs are registered within the container (on your application composition root) with a name, a view and a viewmodel, so that the rest of your application needs to only know a name of the dialog in order to show it.
+Dialogs are registered within the container (on your application composition root) with a name, a View, and a ViewModel so that the rest of your application needs to only know the name of the dialog in order to show it.
 
-When you use the DialogHost from Material Design in XAML to show a dialog you loose some of these useful features.
-This library aims to bring to you the best of both worlds, letting you use the DialogService from Prism with a Material Design in XAML DialogHost
+When you use the DialogHost from Material Design in XAML to show a dialog you lose some of these useful features. This library aims to bring you the best of both worlds, letting you use the DialogService from Prism with a Material Design in XAML DialogHost
 
 ## Examples
 
