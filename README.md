@@ -1,4 +1,4 @@
-# Prism.Plugin.MaterialDesign
+# MaterialDesignThemes.Prism
 
 This package allows better integration of [Material Design In XAML Toolkit](https://github.com/MaterialDesignInXAML/MaterialDesignInXamlToolkit) with [Prism library](https://github.com/PrismLibrary/Prism).
 

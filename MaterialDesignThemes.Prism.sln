@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Prism.Plugin.MaterialDesign", "src\Prism.Plugin.MaterialDesign\Prism.Plugin.MaterialDesign.csproj", "{28212DCE-85C2-494A-8C69-306DA99E5F4A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MaterialDesignThemes.Prism", "src\MaterialDesignThemes.Prism\MaterialDesignThemes.Prism.csproj", "{28212DCE-85C2-494A-8C69-306DA99E5F4A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "_build", "build\_build.csproj", "{6925FD18-8E08-4493-BB44-B8B565F743B5}"
 EndProject
